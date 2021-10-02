@@ -1,0 +1,26 @@
+.button {
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+}
+
+.button__primary {
+  background-color: #ef3340;
+  color: #fff;
+  border: none;
+}
+
+/* Button Size */
+.button__medium {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.button__small {
+  font-size: 12px;
+}

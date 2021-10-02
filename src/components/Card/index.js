@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../Button'
 import styles from './style.module.scss'
 
 export default function Card() {
@@ -13,7 +14,7 @@ export default function Card() {
         <div className={styles.card__price}>S/. 231.00</div>
         <div className={styles.card__footer}>
           <div>Vista previa</div>
-          <div>Boton Agregar</div>
+          <Button>Agregar</Button>
         </div>
       </div>
     </div>
