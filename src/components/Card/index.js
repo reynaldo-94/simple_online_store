@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import useModal from '../../hooks/useModal'
 import Button from '../Button'
 import ModalPortal from '../ModalPortal'
+import Preview from '../Preview'
 import YesNoModal from '../YesNoModal'
 import styles from './style.module.scss'
 
-export default function Card({ 
-  data, 
-  onAdd = () => {},
-  onDelete = () => {} 
+export default function Card({
+  data,
+  onAdd = () => { },
+  onDelete = () => { }
 }) {
 
   const [isOpenPortal, openModalPortal, closeModalPortal, dataPortal] = useModal(false)
@@ -19,6 +20,20 @@ export default function Card({
   const { name, url } = data
 
   const id = url.substr(-3, 2)
+
+  const handleAdd = () => {
+    onAdd(id, name)
+    setIsAdded(true)
+    closeModalAddConfirmation()
+    closeModalPortal()
+  }
+
+  const handleDelete = () => {
+    onDelete(id)
+    setIsAdded(false)
+    closeModalDeleteConfirmation()
+    closeModalPortal()
+  }
 
   return (
     <>
@@ -42,10 +57,16 @@ export default function Card({
           </div>
         </div>
       </div>
-      <ModalPortal isOpen={isOpenPortal} closeModal={closeModalPortal}>
-        <h3>{dataPortal?.name}</h3>
-        <p>Este es el contenido de un modal que carga en otro nodo del DOM diferente donde carga nuestro app de React, gracias a un React Portal</p>
-      </ModalPortal>
+      <Preview
+        title={dataPortal?.name}
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+        extraInformation='Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        onAdd={handleAdd}
+        onDelete={handleDelete}
+        isOpenPortal={isOpenPortal}
+        closeModalPortal={closeModalPortal}
+        isAdded={isAdded}
+      />
       <YesNoModal
         title=''
         question='¿Estás seguro de agregar este producto'
@@ -57,11 +78,7 @@ export default function Card({
         }
         isOpen={isOpenAddConfirmation}
         closeModal={closeModalAddConfirmation}
-        onSuccess={() => {
-          onAdd(id, name)
-          setIsAdded(true)
-          closeModalAddConfirmation()
-        }}
+        onSuccess={handleAdd}
         onClose={closeModalAddConfirmation}
       />
       <YesNoModal
@@ -75,11 +92,7 @@ export default function Card({
         }
         isOpen={isOpenDeleteConfirmation}
         closeModal={closeModalDeleteConfirmation}
-        onSuccess={() => {
-          onDelete(id)
-          setIsAdded(false)
-          closeModalDeleteConfirmation()
-        }}
+        onSuccess={handleDelete}
         onClose={closeModalDeleteConfirmation}
       />
     </>
