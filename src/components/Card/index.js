@@ -2,11 +2,13 @@ import React from 'react'
 import useModal from '../../hooks/useModal'
 import Button from '../Button'
 import ModalPortal from '../ModalPortal'
+import YesNoModal from '../YesNoModal'
 import styles from './style.module.scss'
 
 export default function Card({ data }) {
 
-  const [isOpenPortal, openModalPortal , closeModalPortal, dataPortal] = useModal(false)
+  const [isOpenPortal, openModalPortal, closeModalPortal, dataPortal] = useModal(false)
+  const [isOpenConfirmation, openModalConfirmation, closeModalConfirmation,] = useModal(false)
 
   const { name, url } = data
 
@@ -24,7 +26,7 @@ export default function Card({ data }) {
           <div className={styles.card__price}>S/. 231.00</div>
           <div className={styles.card__footer}>
             <div onClick={() => openModalPortal(id)}>Vista previa</div>
-            <Button>Agregar</Button>
+            <Button onClick={openModalConfirmation}>Agregar</Button>
           </div>
         </div>
       </div>
@@ -32,6 +34,16 @@ export default function Card({ data }) {
         <h3>{dataPortal?.name}</h3>
         <p>Este es el contenido de un modal que carga en otro nodo del DOM diferente donde carga nuestro app de React, gracias a un React Portal</p>
       </ModalPortal>
+      <YesNoModal
+        title=''
+        question='¿Estás seguro de agregar este producto'
+        buttons={
+          { leftText: 'No' },
+          { rightText: 'Si, estoy seguro' }
+        }
+        isOpen={isOpenConfirmation}
+        closeModal={closeModalConfirmation}
+      />
     </>
   )
 }
