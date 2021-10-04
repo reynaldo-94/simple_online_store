@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { priceFormat } from '../../helpers/priceFormat'
 import useModal from '../../hooks/useModal'
 import Button from '../Button'
-import ModalPortal from '../ModalPortal'
 import Preview from '../Preview'
 import YesNoModal from '../YesNoModal'
 import styles from './style.module.scss'
@@ -10,7 +9,8 @@ import styles from './style.module.scss'
 export default function Card({
   data,
   onAdd = () => { },
-  onDelete = () => { }
+  onDelete = () => { },
+  addedProducts = []
 }) {
 
   const [isOpenPortal, openModalPortal, closeModalPortal, dataPortal] = useModal(false)
@@ -36,6 +36,11 @@ export default function Card({
     closeModalDeleteConfirmation()
     closeModalPortal()
   }
+
+  useEffect(() => {
+    const foundProduct = addedProducts.find((product) => product.id === id)
+    foundProduct ? setIsAdded(true) : setIsAdded(false)
+  }, [addedProducts, id])
 
   return (
     <>

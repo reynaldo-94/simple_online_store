@@ -8,7 +8,7 @@ const initialURL = 'https://pokeapi.co/api/v2/pokemon?limit=0&offset=10'
 export default function StoreProducts() {
 
   const [data, setData] = useState([])
-  const [addedProduct, setAddedProduct] = useState([])
+  const [addedProducts, setAddedProducts] = useState([])
 
   const getData = (url) => {
     fetch(url)
@@ -22,11 +22,15 @@ export default function StoreProducts() {
 
   return (
     <div className={styles.container}>
-      <Header products={addedProduct} />
+      <Header 
+        products={addedProducts} 
+        onDeleteAllProducts={() => setAddedProducts([])}
+      />
       <List 
         data={data} 
-        onAdd={(id, name, price) => setAddedProduct([...addedProduct, {id, name, price}])}
-        onDelete={(id) => setAddedProduct(addedProduct.filter((product) => product.id !== id))}
+        onAdd={(id, name, price) => setAddedProducts([...addedProducts, {id, name, price}])}
+        onDelete={(id) => setAddedProducts(addedProducts.filter((product) => product.id !== id))}
+        addedProducts={addedProducts}
       />
     </div>
 

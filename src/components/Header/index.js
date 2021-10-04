@@ -4,7 +4,7 @@ import Button from '../Button'
 import MenuListProducts from './MenuListProducts'
 import styles from './style.module.scss'
 
-export default function Header({ products = [] }) {
+export default function Header({ products = [], onDeleteAllProducts = () => {} }) {
   const [seeProducts, setSeeProducts] = useState(false)
   return (
     <>
@@ -17,7 +17,7 @@ export default function Header({ products = [] }) {
         </div>        
       </div>
     </div>
-    {seeProducts && <MenuListProducts products={products} />}
+    {seeProducts && <MenuListProducts products={products} onDeleteAllProducts={onDeleteAllProducts} />}
     </>
   )
 }

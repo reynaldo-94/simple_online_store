@@ -2,7 +2,10 @@ import React from 'react'
 import { priceFormat } from '../../../helpers/priceFormat'
 import Button from '../../Button'
 
-export default function MenuListProducts({ products = [] }) {
+export default function MenuListProducts({ 
+  products = [], 
+  onDeleteAllProducts = () => {} 
+}) {
   const sum = products.reduce(
     (accumulator, currentValue) => accumulator + currentValue.price,
     0
@@ -27,7 +30,7 @@ export default function MenuListProducts({ products = [] }) {
         <div>Total:</div>
         <div>{priceFormat(sum)}</div>
       </div>
-      <Button>Vaciar Carrito</Button>
+      <Button onClick={onDeleteAllProducts}>Vaciar Carrito</Button>
     </div>
   )
 }
