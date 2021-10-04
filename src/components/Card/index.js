@@ -5,10 +5,15 @@ import ModalPortal from '../ModalPortal'
 import YesNoModal from '../YesNoModal'
 import styles from './style.module.scss'
 
-export default function Card({ data, onAdd }) {
+export default function Card({ 
+  data, 
+  onAdd = () => {},
+  onDelete = () => {} 
+}) {
 
   const [isOpenPortal, openModalPortal, closeModalPortal, dataPortal] = useModal(false)
-  const [isOpenConfirmation, openModalConfirmation, closeModalConfirmation] = useModal(false)
+  const [isOpenAddConfirmation, openModalAddConfirmation, closeModalAddConfirmation] = useModal(false)
+  const [isOpenDeleteConfirmation, openModalDeleteConfirmation, closeModalDeleteConfirmation] = useModal(false)
   const [isAdded, setIsAdded] = useState(false)
 
   const { name, url } = data
@@ -28,9 +33,9 @@ export default function Card({ data, onAdd }) {
           <div className={styles.card__footer}>
             <div onClick={() => openModalPortal(id)}>Vista previa</div>
             {!isAdded ? (
-              <Button onClick={openModalConfirmation}>Agregar</Button>
+              <Button onClick={openModalAddConfirmation}>Agregar</Button>
             ) : (
-              <Button onClick={openModalConfirmation}>Eliminar</Button>
+              <Button onClick={openModalDeleteConfirmation}>Eliminar</Button>
             )
             }
 
@@ -47,17 +52,35 @@ export default function Card({ data, onAdd }) {
         buttons={
           {
             leftText: 'No',
-            rightText: 'Si, estoy seguro'
+            rightText: 'Si, Agregar'
           }
         }
-        isOpen={isOpenConfirmation}
-        closeModal={closeModalConfirmation}
+        isOpen={isOpenAddConfirmation}
+        closeModal={closeModalAddConfirmation}
         onSuccess={() => {
           onAdd(id, name)
           setIsAdded(true)
-          closeModalConfirmation()
+          closeModalAddConfirmation()
         }}
-        onClose={closeModalConfirmation}
+        onClose={closeModalAddConfirmation}
+      />
+      <YesNoModal
+        title=''
+        question='¿Estás seguro de eliminar este producto'
+        buttons={
+          {
+            leftText: 'No',
+            rightText: 'Si, eliminar'
+          }
+        }
+        isOpen={isOpenDeleteConfirmation}
+        closeModal={closeModalDeleteConfirmation}
+        onSuccess={() => {
+          onDelete(id)
+          setIsAdded(false)
+          closeModalDeleteConfirmation()
+        }}
+        onClose={closeModalDeleteConfirmation}
       />
     </>
   )

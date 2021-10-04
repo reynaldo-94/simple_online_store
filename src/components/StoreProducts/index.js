@@ -26,6 +26,7 @@ export default function StoreProducts() {
       <List 
         data={data} 
         onAdd={(id, name) => setAddedProduct([...addedProduct, {id, name}])}
+        onDelete={(id) => setAddedProduct(addedProduct.filter((product) => product.id !== id))}
       />
     </div>
 
