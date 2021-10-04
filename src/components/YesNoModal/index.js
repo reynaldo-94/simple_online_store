@@ -1,3 +1,4 @@
+import Button from "../Button";
 import ModalPortal from "../ModalPortal";
 
 export default function YesNoModal({
@@ -8,15 +9,21 @@ export default function YesNoModal({
     rightText: ''
   },
   isOpen = false,
-  closeModal = false
+  closeModal = false,
+  onSuccess = () => {},
+  onClose = () => {}
 }){
   return (
     <ModalPortal isOpen={isOpen} closeModal={closeModal}>
       <div>{title}</div>
       <div>{question}</div>
       <div>
-        <div>{buttons.leftText}</div>
-        <div>{buttons.rightText}</div>
+        <Button onClick={onClose}>
+          {buttons.leftText}
+        </Button>
+        <Button onClick={onSuccess}>
+          {buttons.rightText}
+        </Button>
       </div>
     </ModalPortal>
   )
