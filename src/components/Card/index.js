@@ -1,22 +1,37 @@
 import React from 'react'
+import useModal from '../../hooks/useModal'
 import Button from '../Button'
+import ModalPortal from '../ModalPortal'
 import styles from './style.module.scss'
 
-export default function Card() {
+export default function Card({ data }) {
+
+  const [isOpenPortal, openModalPortal , closeModalPortal, dataPortal] = useModal(false)
+
+  const { name, url } = data
+
+  const id = url.substr(-3, 2)
+
   return (
-    <div className={styles.card}>
-      <div className={styles.card__image}></div>
-      <div className={styles.card__body}>
-        <div className={styles.card__title}>Producto</div>
-        <div className={styles.card__description}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-        </div>
-        <div className={styles.card__price}>S/. 231.00</div>
-        <div className={styles.card__footer}>
-          <div>Vista previa</div>
-          <Button>Agregar</Button>
+    <>
+      <div className={styles.card}>
+        <div className={styles.card__image}></div>
+        <div className={styles.card__body}>
+          <div className={styles.card__title}>{name}</div>
+          <div className={styles.card__description}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+          </div>
+          <div className={styles.card__price}>S/. 231.00</div>
+          <div className={styles.card__footer}>
+            <div onClick={() => openModalPortal(id)}>Vista previa</div>
+            <Button>Agregar</Button>
+          </div>
         </div>
       </div>
-    </div>
+      <ModalPortal isOpen={isOpenPortal} closeModal={closeModalPortal}>
+        <h3>{dataPortal?.name}</h3>
+        <p>Este es el contenido de un modal que carga en otro nodo del DOM diferente donde carga nuestro app de React, gracias a un React Portal</p>
+      </ModalPortal>
+    </>
   )
 }
