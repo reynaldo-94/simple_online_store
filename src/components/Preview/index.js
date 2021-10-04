@@ -16,20 +16,35 @@ export default function Preview({
 }) {
   return (
     <ModalPortal isOpen={isOpenPortal} closeModal={closeModalPortal}>
-      <h3>{title}</h3>
-      <span>{priceFormat(price)}</span>
-      <p>{description}</p>
-      <p>{extraInformation}</p>
-      {!isAdded ? (
-        <Button onClick={onAdd}>
-          Agregar
-        </Button>
-      ) : (
-        <Button onClick={onDelete}>
-          Eliminar
-        </Button>
-      )}
-
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ height: 100, backgroundColor: 'gray' }}></div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 13, flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>{title}</div>
+              <p>{description}</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ fontWeight: 'bold' }}>Información extra</div>
+              <p>{extraInformation}</p>
+            </div>
+          </div>
+          <span style={{ fontWeight: 'bold' }}>{priceFormat(price)}</span>
+        </div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+      {
+        !isAdded ? (
+          <Button onClick={onAdd}>
+            Agregar
+          </Button>
+        ) : (
+          <Button onClick={onDelete} type='danger'>
+            Eliminar
+          </Button>
+        )
+      }
+      </div>
     </ModalPortal>
   )
 }

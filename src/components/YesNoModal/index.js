@@ -10,20 +10,22 @@ export default function YesNoModal({
   },
   isOpen = false,
   closeModal = false,
-  onSuccess = () => {},
-  onClose = () => {}
-}){
+  onSuccess = () => { },
+  onClose = () => { }
+}) {
   return (
     <ModalPortal isOpen={isOpen} closeModal={closeModal}>
-      <div>{title}</div>
-      <div>{question}</div>
-      <div>
-        <Button onClick={onClose}>
-          {buttons.leftText}
-        </Button>
-        <Button onClick={onSuccess}>
-          {buttons.rightText}
-        </Button>
+      {/* <div>{title}</div> */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ fontWeight: 'bold' }}>{question}</div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button onClick={onClose}>
+            {buttons.leftText}
+          </Button>
+          <Button onClick={onSuccess}>
+            {buttons.rightText}
+          </Button>
+        </div>
       </div>
     </ModalPortal>
   )

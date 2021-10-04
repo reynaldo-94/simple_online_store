@@ -1,8 +1,11 @@
 .card {
   background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow: hidden;
   width: 200px;
 }
 
@@ -19,11 +22,19 @@
 
   .card__title {
     font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  .card__description {
+    text-align: justify;
   }
 
   .card__price {
     display: flex;
     justify-content: flex-end;
+    font-weight: bold;
   }
 
   .card__footer {

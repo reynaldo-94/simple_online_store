@@ -9,8 +9,26 @@
   transform: translateY(-3px);
 }
 
-.button__primary {
+.primary {
+  background-color: #4385f5;
+  color: #fff;
+  border: none;
+}
+
+.success {
+  background-color: #2abbac;
+  color: #fff;
+  border: none;
+}
+
+.danger {
   background-color: #ef3340;
+  color: #fff;
+  border: none;
+}
+
+.info {
+  background-color: #33b5e7;
   color: #fff;
   border: none;
 }

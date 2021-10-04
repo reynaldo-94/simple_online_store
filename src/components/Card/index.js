@@ -53,11 +53,17 @@ export default function Card({
           </div>
           <div className={styles.card__price}>{priceFormat(price)}</div>
           <div className={styles.card__footer}>
-            <div onClick={() => openModalPortal(id)}>Vista previa</div>
+            {/* <div onClick={() => openModalPortal(id)}>Vista previa</div> */}
+            <Button
+              onClick={() => openModalPortal(id)}
+              type='success'
+            >
+              Vista previa
+            </Button>
             {!isAdded ? (
-              <Button onClick={openModalAddConfirmation}>Agregar</Button>
+              <Button onClick={openModalAddConfirmation} type='primary'>Agregar</Button>
             ) : (
-              <Button onClick={openModalDeleteConfirmation}>Eliminar</Button>
+              <Button onClick={openModalDeleteConfirmation} type='danger'>Eliminar</Button>
             )
             }
 
